@@ -33,7 +33,7 @@ public class FeedActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private FirebaseFirestore firebaseFirestore;
-    ArrayList<Post> postArrayList; //RecyclerView'a kullanıcının girdiği email, yorum ve kullanıcının fotosunun urlsini girmek için oluşturduğumuz bir arraylist
+    ArrayList<Post> postArrayList;
 
     private ActivityFeedBinding binding;
     PostAdapter postAdapter;
@@ -60,9 +60,9 @@ public class FeedActivity extends AppCompatActivity {
 
     }
 
-    private void getData(){//Firestore'dan verileri çekme(okuma) kısmına geldik
+    private void getData(){
 
-        firebaseFirestore.collection("Posts"/*upload aktivityde ki ile aynı adı vermeliyim*/).orderBy("date", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {//burada .addSnapShotListener() dememizin sebebi verileri gerçek zamanlı olarak anlık almak istememiz. Eğer verileri 1 defaya mahsus çekeceksek ve sistemi yormak istemiyorsak .addSnapShotListener() yerine .get() demektir.
+        firebaseFirestore.collection("Posts").orderBy("date", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
@@ -73,11 +73,11 @@ public class FeedActivity extends AppCompatActivity {
                 if(value!=null){
 
 
-                    for(DocumentSnapshot snapshot:value.getDocuments()){ //firestore'daki dökümanları bir liste olarak verir. Tek tek o dökümanların üstünden geçip onları işlememiz gerekiyor. O yüzden bunu bir for loop'a alacağım çünkü dediğim gibi bu bize bir liste veriyor. value.getDocuments()'in veritipi de DocumentSnapshot olduğundan DocumentSnapshot data: diye yazdık, onu da belirtmeliyiz
+                    for(DocumentSnapshot snapshot:value.getDocuments()){
 
-                        Map<String,Object> data=snapshot.getData();//burada verileri alıyor tek tek bu map'e kaydediyor sırasıyla
+                        Map<String,Object> data=snapshot.getData();
 
-                        String userEmail=(String) data.get("useremail");//burada data.get() diyerek veriyi çekiyoz ancak bize bu veriler anahtar değer şeklinde hashap'e koyulduğundan hangi key isimli veriyi istiyon dedi, biz de useremail isimli ve key olan veriyi getir dedik. Bunun çıktısı da Object veritipinde olduğundan da (String) yazarak ben eminim bunun string olduğundan(çünkü email stringtir) diyerek hatayı giderdim.
+                        String userEmail=(String) data.get("useremail");
                         String comment=(String) data.get("comment");
                         String downloadUrl=(String) data.get("downloadurl");
 
@@ -86,7 +86,7 @@ public class FeedActivity extends AppCompatActivity {
                         postArrayList.add(post);
                     }
 
-                    postAdapter.notifyDataSetChanged();//haber ver recyclerView'a yeni veri geldi onu göstersin demek
+                    postAdapter.notifyDataSetChanged();
 
                 }
 
@@ -109,16 +109,16 @@ public class FeedActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if(item.getItemId()==R.id.addpost){//post atma sayfasına git
+        if(item.getItemId()==R.id.addpost){
 
             Intent intentToUpload=new Intent(FeedActivity.this,UploadActivity.class);
             startActivity(intentToUpload);
 
         }
 
-        else if(item.getItemId()==R.id.signout){//çıkış yap
+        else if(item.getItemId()==R.id.signout){
 
-            auth.signOut();//eğer bunu yazmazsak kullanıcı çıkış yap'a bile bassa bişe olmuyor denendi onaylandı. Intentler işe yaramıyor sadece
+            auth.signOut();
 
             Intent intentToSignOut =new Intent(FeedActivity.this,MainActivity.class);
             startActivity(intentToSignOut);
