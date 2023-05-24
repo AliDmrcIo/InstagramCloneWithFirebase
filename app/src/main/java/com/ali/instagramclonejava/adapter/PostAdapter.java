@@ -35,7 +35,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
 
         holder.recyclerRowBinding.recyclerViewUserEmailText.setText(postArrayList.get(position).email);
         holder.recyclerRowBinding.recyclerViewCommentText.setText(postArrayList.get(position).comment);
-        Picasso.get().load(postArrayList.get(position).downloadUrl).into(holder.recyclerRowBinding.recyclerViewImageView);//elimizde görselin url si var ama o urlyi download etmemiz lazım ardından görsel hale çevirip göstermemiz gerekiyor ve bu işlemi de halihazırda yazılan kütüphanelerden olan picasso'dan yararlanacağız. ve bu da o fotoyu alıp kullanıcıya işlemlerden(fotoyu download etme, sonrasında tekrar yükleme vs) geçirdikten sonra göstermek için
+        Picasso.get().load(postArrayList.get(position).downloadUrl).into(holder.recyclerRowBinding.recyclerViewImageView);
     }
 
     @Override
