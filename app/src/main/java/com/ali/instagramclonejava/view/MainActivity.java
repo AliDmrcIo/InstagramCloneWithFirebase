@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         else{
 
-            auth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {//email ve şifre ile bir kullanıcı yarat dedik. İçerisinde de bizden bir email ve şifre istedi. bizde binding. ile kullanıcının gireceği email ve şifreyi buraya verdik. auth.createUserWithEmailAndPassword(email,password) burası tamamlandıktan sonra tekrar . dedik ve bize sunucunun bize döndüreceği cevaplara göre aksiyon alabileceğimiz listenerlar çıktı. biz de sunucuya gönderilen cevap başarılı olursa ne yapacağız(.addOnSuccessListener(new OnSuccessListener) ve başarısız olursa ne yapacağız durumlarındaki listener'ları ekledik. Aşağısını kendi doldurdu yani ben bir şey yapmadım
+            auth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
 
                 @Override
                 public void onSuccess(AuthResult authResult) {
